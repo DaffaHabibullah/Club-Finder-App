@@ -21,24 +21,24 @@ class SearchBar extends HTMLElement {
   connectedCallback() {
     this._shadowRoot
       .querySelector('form')
-      .addEventListener('submit', (event) => this._onFormSubmit(event, this));
-    this.addEventListener(this._submitEvent, this._onSearchBarSubmit);
+      .addEventListener('submit', (event) => this.#onFormSubmit(event, this));
+    this.addEventListener(this._submitEvent, this.#onSearchBarSubmit);
   }
 
   disconnectedCallback() {
     this._shadowRoot
       .querySelector('form')
-      .removeEventListener('submit', (event) => this._onFormSubmit(event, this));
-    this.removeEventListener(this._submitEvent, this._onSearchBarSubmit);
+      .removeEventListener('submit', (event) => this.#onFormSubmit(event, this));
+    this.removeEventListener(this._submitEvent, this.#onSearchBarSubmit);
   }
 
-  _onFormSubmit(event, searchBarInstance) {
+  #onFormSubmit(event, searchBarInstance) {
     searchBarInstance.dispatchEvent(new CustomEvent('submit'));
 
     event.preventDefault();
   }
 
-  _onSearchBarSubmit() {
+  #onSearchBarSubmit() {
     const query = this._shadowRoot.querySelector('input#name').value;
 
     if (!query) return;
